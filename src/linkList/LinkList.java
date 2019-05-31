@@ -116,4 +116,26 @@ public class LinkList<T> implements myLInkList<T>{
         }
         return slow;
     }
+
+    //4 删除重复元素的节点
+    public void removeNode(){
+        Node firNode = head.next;
+        Node secNode;
+
+        while(firNode != null){
+            secNode = firNode;
+
+            while (secNode != null&&secNode.next != null){
+
+                if (secNode.next.data == firNode.data){
+                    //如果数值相同，则删除当前节点secNode.next
+                    secNode.next = secNode.next.next;
+                    secNode = secNode.next;
+                }else{
+                    secNode = secNode.next;
+                }
+            }
+            firNode = firNode.next;
+        }
+    }
 }
