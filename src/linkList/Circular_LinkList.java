@@ -57,12 +57,24 @@ public class Circular_LinkList<T> implements myLInkList<T>{
 
     @Override
     public void addNode(int index, T value) {
-
+        if (index < 1||index > size){
+            throw new IndexOutOfBoundsException("索引越界");
+        }
+        Node newnode = new Node(value);
+        current = getNode(index);
+        newnode.next = current.next;
+        current.next = newnode;
+        size++;
     }
 
     @Override
     public void delNode(int index) {
-
+        if (index <1||index>size){
+            throw new IndexOutOfBoundsException("索引越界");
+        }
+        current = getNode(index);
+        current.next = current.next.next;
+        size--;
     }
 
     @Override
