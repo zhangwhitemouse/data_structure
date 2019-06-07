@@ -1,8 +1,11 @@
 package Tree;
 
+import java.util.ArrayDeque;
+import java.util.Queue;
+
 /**
  * @author Linzhang
- * @Description TODO   常规二叉树的实现
+ * @Description TODO   常规二叉树的实现(插入节点和遍历节点)
  * @Date 9:52 2019/6/6
  * @Version 1.0
  */
@@ -101,7 +104,25 @@ public class BinaryTree {
         }
     }
     //2 广度优先BFS
+    public void BreTraverse(BinaryTree node){
+        if (node != null){
+            Queue<BinaryTree> queue = new ArrayDeque<>();
+            queue.add(node);
 
+            while (!queue.isEmpty()){
+                BinaryTree cur_node = queue.poll();
+                System.out.println(cur_node.data);
+
+                if (cur_node.leftnode != null){
+                    queue.add(cur_node.leftnode);
+                }
+
+                if (cur_node.rightnode !=null){
+                    queue.add(cur_node.rightnode);
+                }
+            }
+        }
+    }
 
 
     //测试树
@@ -119,9 +140,11 @@ public class BinaryTree {
         node5.insertleft(node5,"6");
         node5.insertright(node5,"7");
 
-        node.PreOrder(node);
+/*        node.PreOrder(node);
         node.InOrder(node);
-        node.PostOrder(node);
+        node.PostOrder(node);*/
+
+        node.BreTraverse(node);
 
     }
 }
