@@ -41,7 +41,21 @@ public class BinarySearchTree {
     }
 
     //插入节点
-    public void InsertNode(BinarySearchTree node,String value){
-
+    public void InsertNode(BinarySearchTree node,Integer value){
+        if (node != null){
+            if (value <= Integer.valueOf(node.data) && node.leftnode !=null){
+                node.leftnode.InsertNode(node.leftnode,value);
+            }else if (value <= Integer.valueOf(node.data)){
+                node.leftnode = new BinarySearchTree(String.valueOf(value));
+            }else if (value > Integer.valueOf(node.data) &&node.rightnode != null){
+                node.rightnode.InsertNode(node.rightnode,value);
+            }else{
+                node.rightnode = new BinarySearchTree(String.valueOf(value));
+            }
+        }
     }
+
+    //删除节点
+
+
 }
