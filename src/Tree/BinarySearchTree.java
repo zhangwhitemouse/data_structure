@@ -56,6 +56,63 @@ public class BinarySearchTree {
     }
 
     //删除节点
+    //1 当前节点没有子节点
+    //2 当前节点有一个子节点
+    //3 当前节点有两个子节点
+    public boolean removeNode(BinarySearchTree node, Integer value, BinarySearchTree parent) {
+        if (node != null) {
+            if (value < Integer.valueOf(node.data) && node.leftnode != null) {
+                return node.leftnode.removeNode(node.leftnode, value, node);
+            } else if (value < Integer.valueOf(node.data)) {
+                return false;
+            } else if (value > Integer.valueOf(node.data) && node.rightnode != null) {
+                return node.rightnode.removeNode(node.rightnode, value, node);
+            } else if (value > Integer.valueOf(node.data)) {
+                return false;
+            } else {
+                if (node.leftnode == null && node.rightnode == null && node == parent.leftnode) {
+                    parent.leftnode = null;
+                    node.clearNode(node);
+                } else if (node.leftnode == null && node.rightnode == null && node == parent.rightnode) {
+                    parent.rightnode = null;
+                    node.clearNode(node);
+                } else if (node.leftnode != null && node.rightnode == null && node == parent.leftnode) {
+                    parent.leftnode = node.leftnode;
+                    node.clearNode(node);
+                } else if (node.leftnode != null && node.rightnode == null && node == parent.rightnode) {
+                    parent.rightnode = node.leftnode;
+                    node.clearNode(node);
+                } else if (node.rightnode != null && node.leftnode == null && node == parent.leftnode) {
+                    parent.leftnode = node.rightnode;
+                    node.clearNode(node);
+                } else if (node.rightnode != null && node.leftnode == null && node == parent.rightnode) {
+                    parent.rightnode = node.rightnode;
+                    node.clearNode(node);
+                } else {
+                    node.data=String.valueOf(node.rightnode.findMinValue(node.rightnode));
+                    node.rightnode.removeNode(node.rightnode,Integer.valueOf(node.rightnode.data),node);
+                }
+                return true;
+            }
+        }
+        return false;
+    }
 
-
+    //清除节点
+    public void clearNode(BinarySearchTree node) {
+        node.data = null;
+        node.leftnode = null;
+        node.rightnode = null;
+    }
+    //找到最小的节点值
+    public Integer findMinValue(BinarySearchTree node) {
+        if (node != null) {
+            if (node.leftnode != null) {
+                return node.leftnode.findMinValue(node.leftnode);
+            } else {
+                return Integer.valueOf(node.data);
+            }
+        }
+        return null;
+    }
 }
